@@ -1,0 +1,20 @@
+*{
+    margin: 0px;
+    padding: 0px;
+}
+
+h3::after{
+    content: '';
+	display: block;
+	width: 150px;
+	height: 2px;
+	background-color: purple;
+	margin: auto;
+    margin-top: 5px;
+    margin-bottom: 7px;
+}
+
+.pokemonCards{
+    text-align: center;
+    padding: 25px 0;
+}
