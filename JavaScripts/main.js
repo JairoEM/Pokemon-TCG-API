@@ -1,19 +1,18 @@
-$("document").ready( () => {
+$(document).ready( function() {
     var $cards = $("section#pokemonCards");
     var $win = $(window);
     var page = 1;
+    var scroll = true;
 
-    // INITIAL PETITION
     $.ajax({
         method: "GET",
         url: "https://api.pokemontcg.io/v1/cards?page="+ page +"&pageSize=12"
     })
     
     .done(function(result){          
-        for(let i = 0; i < result.length; i++){
+        for(let i = 0; i < result.cards.length; i++){
             $cards.append("<div class='pokemonCard'></div>");
             var $card = $("div.pokemonCard:last-child");
-            // TAGS
             $card.append("<h3>"+ result.cards[i].name +"</h3>");
             $card.append("<img src="+ result.cards[i].imageUrl +">");
         }
@@ -26,22 +25,28 @@ $("document").ready( () => {
     });
 
     $win.scroll( function() {
-        if ( $(document).height() - $win.height() == $win.scrollTop()) {
-            $.ajax({
-                method: "GET",
-                url: "https://api.pokemontcg.io/v1/cards?page="+ page +"&pageSize=12",
+        if ($(document).height() - $win.height() <= $win.scrollTop()) {
+            console.log("1");
+            if(scroll == true){
+                scroll = false;
+                $.ajax({
+                    method: "GET",
+                    url: "https://api.pokemontcg.io/v1/cards?page="+ page +"&pageSize=12",
 
-                success: function(result) {     
-                    for(let i = 0; i < result.length; i++){
-                        $cards.append("<div class='pokemonCard'></div>");
-                        var $card = $("div.pokemonCard:last-child");
-                        // TAGS
-                        $card.append("<h3>"+ result.cards[i].name +"</h3>");
-                        $card.append("<img src="+ result.cards[i].imageUrl +">");
+                    success: function(result) {     
+                        for(let i = 0; i < result.cards.length; i++){
+                            $cards.append("<div class='pokemonCard'></div>");
+                            var $card = $("div.pokemonCard:last-child");
+                            // TAGS
+                            $card.append("<h3>"+ result.cards[i].name +"</h3>");
+                            $card.append("<img src="+ result.cards[i].imageUrl +">");
+                        }
+                        page++;
+                        scroll = true;
+                        console.log("2");
                     }
-                    page++;
-                }
-            });
+                });
+            }
         }
     });
 });
