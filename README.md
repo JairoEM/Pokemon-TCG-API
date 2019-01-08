@@ -1,2 +1,2 @@
 # Pokemon-TCG-API
-Pkemon TCG API proyect. 
+Pokemon TCG API proyect. 
