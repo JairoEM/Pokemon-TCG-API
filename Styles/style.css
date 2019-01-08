@@ -3,6 +3,37 @@
     padding: 0px;
 }
 
+body{
+    background-image: url("../Images/fondo.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+@font-face{
+    font-family: Pocket Monk;
+    src: url("../Fonts/Pocket Monk.otf");
+}
+
+.pokemonCards{
+    text-align: left;
+    padding: 25px;
+}
+
+.pokemonCard{
+    margin-top: 40px !important;
+    text-align: center;
+}
+
+.pokemonCard h3{
+    font-family: Pocket Monk !important;
+    color: black;
+}
+
+.pokemonCard h3::first-letter{
+    font-size: 1.5em;
+}
+
 h3::after{
     content: '';
 	display: block;
@@ -14,7 +45,19 @@ h3::after{
     margin-bottom: 7px;
 }
 
-.pokemonCards{
+#pokemonInfo{
+    position: fixed;
+    padding: 10px;
     text-align: center;
-    padding: 25px 0;
+    background-color: rgba(89, 48, 150, 0.8) !important;
+}
+
+.cardInfo *{
+    color: white;
+    z-index: 99 !important;
+}
+
+#pokemonInfo h3{
+    font-family: Pocket Monk !important;
+    color: black;
 }
