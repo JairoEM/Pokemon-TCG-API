@@ -1,10 +1,12 @@
-$(document).ready( function() {
+$(document).ready(function(){
     var $cards = $("section#pokemonCards");
     var $info = $("section#pokemonInfo");
     var $win = $(window);
     var page = 1;
     var scroll = true;
+    var main = true;
 
+    // INITIAL LAYOUT
     $.ajax({
         method: "GET",
         url: "https://api.pokemontcg.io/v1/cards?page="+ page +"&pageSize=12"
@@ -17,14 +19,28 @@ $(document).ready( function() {
             $card.append("<h3>"+ result.cards[i].name +"</h3>");
             $card.append("<img src="+ result.cards[i].imageUrl +">");
             $card.click(function(){
-                $info.empty();
-                $info.append("<div class='cardInfo'></div>");
-                var $cardInfo = $("div.cardInfo:last-child");
-                $cardInfo.append("<h3>"+ result.cards[i].name +"</h3>");
-                $cardInfo.append("<p>Type: "+ result.cards[i].types[0] +"</p>");
-                $cardInfo.append("<p>HP: "+ result.cards[i].hp +"</p>");
-                $cardInfo.append("<p>Number: "+ result.cards[i].number +"</p>");
-                $cardInfo.append("<p>Rarity: "+ result.cards[i].rarity +"</p>");
+                var pokemonID = result.cards[i].id;
+                $.ajax({
+                    method: "GET",
+                    url: "https://api.pokemontcg.io/v1/cards?id="+ pokemonID
+                })
+
+                .done(function(response){
+                    $info.empty();
+                    $info.append("<div class='cardInfo'></div>");
+                    var $cardInfo = $("div.cardInfo:last-child");
+                    $cardInfo.append("<h3>"+ response.cards[0].name +"</h3>");
+                    $cardInfo.append("<p>Supertype: "+ response.cards[0].supertype +"</p>");
+                    $cardInfo.append("<p>Type: "+ response.cards[0].types[0] +"</p>");
+                    $cardInfo.append("<p>HP: "+ response.cards[0].hp +"</p>");
+                    $cardInfo.append("<p>Number: "+ response.cards[0].number +"</p>");
+                    $cardInfo.append("<p>Rarity: "+ response.cards[0].rarity +"</p>");
+                })
+
+                .fail(function(){
+                    console.error("PETITION NOT WORKING");
+                    alert("PETITION NOT WORKING");
+                });
             });
         }
         page++;
@@ -35,36 +51,109 @@ $(document).ready( function() {
         alert("API NOT WORKING");
     });
 
-    $win.scroll( function() {
-        if ($(document).height() - $win.height() <= $win.scrollTop()) {
-            if(scroll == true){
-                scroll = false;
-                $.ajax({
-                    method: "GET",
-                    url: "https://api.pokemontcg.io/v1/cards?page="+ page +"&pageSize=12",
+    // INFINITE SCROLL AND LAYOUT
+    $win.scroll(function(){
+        if(main == true){
+            if ($(document).height() - $win.height() <= $win.scrollTop()){
+                if(scroll == true){
+                    scroll = false;
+                    $.ajax({
+                        method: "GET",
+                        url: "https://api.pokemontcg.io/v1/cards?page="+ page +"&pageSize=12",
 
-                    success: function(result) {     
-                        for(let i = 0; i < result.cards.length; i++){
-                            $cards.append("<div class='pokemonCard col-md-4'></div>");
-                            var $card = $("div.pokemonCard:last-child");
-                            $card.append("<h3>"+ result.cards[i].name +"</h3>");
-                            $card.append("<img src="+ result.cards[i].imageUrl +">");
-                            $card.click(function(){
-                                $info.empty();
-                                $info.append("<div class='cardInfo'></div>");
-                                var $cardInfo = $("div.cardInfo:last-child");
-                                $cardInfo.append("<h3>"+ result.cards[i].name +"</h3>");
-                                $cardInfo.append("<p>Type: "+ result.cards[i].types[0] +"</p>");
-                                $cardInfo.append("<p>HP: "+ result.cards[i].hp +"</p>");
-                                $cardInfo.append("<p>Number: "+ result.cards[i].number +"</p>");
-                                $cardInfo.append("<p>Rarity: "+ result.cards[i].rarity +"</p>");
-                            });
+                        success: function(result){     
+                            for(let i = 0; i < result.cards.length; i++){
+                                $cards.append("<div class='pokemonCard col-md-4'></div>");
+                                var $card = $("div.pokemonCard:last-child");
+                                $card.append("<h3>"+ result.cards[i].name +"</h3>");
+                                $card.append("<img src="+ result.cards[i].imageUrl +">");
+                                $card.click(function(){
+                                    var pokemonID = result.cards[i].id;
+                                    $.ajax({
+                                        method: "GET",
+                                        url: "https://api.pokemontcg.io/v1/cards?id="+ pokemonID
+                                    })
+
+                                    .done(function(response){
+                                        $info.empty();
+                                        $info.append("<div class='cardInfo'></div>");
+                                        var $cardInfo = $("div.cardInfo:last-child");
+                                        $cardInfo.append("<h3>"+ response.cards[0].name +"</h3>");
+                                        $cardInfo.append("<p>Supertype: "+ response.cards[0].supertype +"</p>");
+                                        $cardInfo.append("<p>Type: "+ response.cards[0].types[0] +"</p>");
+                                        $cardInfo.append("<p>HP: "+ response.cards[0].hp +"</p>");
+                                        $cardInfo.append("<p>Number: "+ response.cards[0].number +"</p>");
+                                        $cardInfo.append("<p>Rarity: "+ response.cards[0].rarity +"</p>");
+                                    })
+
+                                    .fail(function(){
+                                        console.error("PETITION NOT WORKING");
+                                        alert("PETITION NOT WORKING");
+                                    });
+                                });
+                            }
+                            page++;
+                            scroll = true;
+                        },
+
+                        error: function(){
+                            console.error("PETITION NOT WORKING");
+                            alert("PETITION NOT WORKING");
                         }
-                        page++;
-                        scroll = true;
-                    }
-                });
+                    });
+                }
             }
         }
+    });
+    
+    // SEARCH FUNCTIONALITY
+    $("#search").click(function(){
+        main = false;
+        console.log(main);
+        var pokemonName = $("#searchStr").val();
+        $cards.empty();
+        $.ajax({
+            method: "GET",
+            url: "https://api.pokemontcg.io/v1/cards?name="+ pokemonName
+        })
+
+        .done(function(result){
+            console.log(result);
+            for(let i = 0; i < result.cards.length; i++){
+                $cards.append("<div class='pokemonCard col-md-4'></div>");
+                var $card = $("div.pokemonCard:last-child");
+                $card.append("<h3>"+ result.cards[i].name +"</h3>");
+                $card.append("<img src="+ result.cards[i].imageUrl +">");
+                $card.click(function(){
+                    var pokemonID = result.cards[i].id;
+                    $.ajax({
+                        method: "GET",
+                        url: "https://api.pokemontcg.io/v1/cards?id="+ pokemonID
+                    })
+
+                    .done(function(response){
+                        $info.empty();
+                        $info.append("<div class='cardInfo'></div>");
+                        var $cardInfo = $("div.cardInfo:last-child");
+                        $cardInfo.append("<h3>"+ response.cards[0].name +"</h3>");
+                        $cardInfo.append("<p>Supertype: "+ response.cards[0].supertype +"</p>");
+                        $cardInfo.append("<p>Type: "+ response.cards[0].types[0] +"</p>");
+                        $cardInfo.append("<p>HP: "+ response.cards[0].hp +"</p>");
+                        $cardInfo.append("<p>Number: "+ response.cards[0].number +"</p>");
+                        $cardInfo.append("<p>Rarity: "+ response.cards[0].rarity +"</p>");
+                    })
+
+                    .fail(function(){
+                        console.error("PETITION NOT WORKING");
+                        alert("PETITION NOT WORKING");
+                    });
+                });
+            }
+        })
+
+        .fail(function(){
+            console.error("PETITION NOT WORKING");
+            alert("PETITION NOT WORKING");
+        });
     });
 });
