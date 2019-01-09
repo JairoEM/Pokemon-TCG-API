@@ -12,13 +12,13 @@ $(document).ready( function() {
     
     .done(function(result){          
         for(let i = 0; i < result.cards.length; i++){
-            $cards.append("<div class='pokemonCard col-sm-4'></div>");
+            $cards.append("<div class='pokemonCard col-md-4'></div>");
             var $card = $("div.pokemonCard:last-child");
             $card.append("<h3>"+ result.cards[i].name +"</h3>");
             $card.append("<img src="+ result.cards[i].imageUrl +">");
             $card.click(function(){
                 $info.empty();
-                $info.append("<div class='cardInfo col-sm-2'></div>");
+                $info.append("<div class='cardInfo'></div>");
                 var $cardInfo = $("div.cardInfo:last-child");
                 $cardInfo.append("<h3>"+ result.cards[i].name +"</h3>");
                 $cardInfo.append("<p>Type: "+ result.cards[i].types[0] +"</p>");
@@ -45,13 +45,13 @@ $(document).ready( function() {
 
                     success: function(result) {     
                         for(let i = 0; i < result.cards.length; i++){
-                            $cards.append("<div class='pokemonCard col-sm-4'></div>");
+                            $cards.append("<div class='pokemonCard col-md-4'></div>");
                             var $card = $("div.pokemonCard:last-child");
                             $card.append("<h3>"+ result.cards[i].name +"</h3>");
                             $card.append("<img src="+ result.cards[i].imageUrl +">");
                             $card.click(function(){
                                 $info.empty();
-                                $info.append("<div class='cardInfo col-sm-2'></div>");
+                                $info.append("<div class='cardInfo'></div>");
                                 var $cardInfo = $("div.cardInfo:last-child");
                                 $cardInfo.append("<h3>"+ result.cards[i].name +"</h3>");
                                 $cardInfo.append("<p>Type: "+ result.cards[i].types[0] +"</p>");
