@@ -91,12 +91,16 @@ $(document).ready(function(){
                                         $info.empty();
                                         $info.append("<div class='cardInfo'></div>");
                                         var $cardInfo = $("div.cardInfo:last-child");
-                                        $cardInfo.append("<h2>"+ response.cards[0].name +"</h2>");
                                         $cardInfo.append("<p>Supertype: "+ response.cards[0].supertype +"</p>");
                                         $cardInfo.append("<p>Type: "+ response.cards[0].types[0] +"</p>");
                                         $cardInfo.append("<p>HP: "+ response.cards[0].hp +"</p>");
                                         $cardInfo.append("<p>Number: "+ response.cards[0].number +"</p>");
                                         $cardInfo.append("<p>Rarity: "+ response.cards[0].rarity +"</p>");
+                                        $info.dialog( "option", "title", response.cards[0].name );
+                                        $info.dialog("option", "width", 347);
+                                        $info.dialog("option", "height", 480);
+                                        $info.dialog("option", "resizable", false);
+                                        $info.dialog("open");
                                     })
 
                                     .fail(function(){
@@ -148,12 +152,16 @@ $(document).ready(function(){
                         $info.empty();
                         $info.append("<div class='cardInfo'></div>");
                         var $cardInfo = $("div.cardInfo:last-child");
-                        $cardInfo.append("<h2>"+ response.cards[0].name +"</h2>");
                         $cardInfo.append("<p>Supertype: "+ response.cards[0].supertype +"</p>");
                         $cardInfo.append("<p>Type: "+ response.cards[0].types[0] +"</p>");
                         $cardInfo.append("<p>HP: "+ response.cards[0].hp +"</p>");
                         $cardInfo.append("<p>Number: "+ response.cards[0].number +"</p>");
                         $cardInfo.append("<p>Rarity: "+ response.cards[0].rarity +"</p>");
+                        $info.dialog( "option", "title", response.cards[0].name );
+                        $info.dialog("option", "width", 347);
+                        $info.dialog("option", "height", 480);
+                        $info.dialog("option", "resizable", false);
+                        $info.dialog("open");
                     })
 
                     .fail(function(){
