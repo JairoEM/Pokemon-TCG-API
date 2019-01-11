@@ -5,6 +5,8 @@ $(document).ready(function(){
     var page = 1;
     var scroll = true;
     var main = true;
+    var audio = document.getElementById("audio");
+
 
     // DIALOG
     $($info).dialog({
@@ -48,6 +50,7 @@ $(document).ready(function(){
                     $info.dialog("option", "height", 480);
                     $info.dialog("option", "resizable", false);
                     $info.dialog("open");
+                    audio.play();
                 })
 
                 .fail(function(){
@@ -101,6 +104,7 @@ $(document).ready(function(){
                                         $info.dialog("option", "height", 480);
                                         $info.dialog("option", "resizable", false);
                                         $info.dialog("open");
+                                        audio.play();
                                     })
 
                                     .fail(function(){
@@ -162,6 +166,7 @@ $(document).ready(function(){
                         $info.dialog("option", "height", 480);
                         $info.dialog("option", "resizable", false);
                         $info.dialog("open");
+                        audio.play();
                     })
 
                     .fail(function(){
