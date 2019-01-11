@@ -4,10 +4,11 @@
 }
 
 body{
-    background-image: url("../Images/fondo.png");
+    /* background-image: url("../Images/fondo.png");
     background-repeat: no-repeat;
     background-position: center;
-    background-attachment: fixed;
+    background-attachment: fixed; */
+    background-color: #ffffbf;
 }
 
 @font-face{
@@ -25,39 +26,53 @@ body{
     text-align: center;
 }
 
-.pokemonCard h3{
+.pokemonCard h2{
     font-family: Pocket Monk !important;
-    color: black;
+    color:  rgb(89, 48, 150);
 }
 
-.pokemonCard h3::first-letter{
+.pokemonCard h2::first-letter{
     font-size: 1.5em;
 }
 
-h3::after{
+h2::after{
     content: '';
 	display: block;
 	width: 150px;
 	height: 2px;
-	background-color: purple;
+	background-color: rgb(89, 48, 150);
 	margin: auto;
     margin-top: 5px;
     margin-bottom: 7px;
 }
 
 #pokemonInfo{
-    position: fixed;
     padding: 10px;
     text-align: center;
-    background-color: rgba(89, 48, 150, 0.8) !important;
+    background-image: url("../Images/reverse.jpg");
+    background-repeat: no-repeat;
+    background-position: center;
 }
 
 .cardInfo *{
     color: white;
-    z-index: 99 !important;
+    text-shadow:
+        -1px -1px 0 black,  
+        1px -1px 0 black,
+        -1px 1px 0 black,
+        1px 1px 0 black;
+    font-size: 1.5em;
 }
 
-#pokemonInfo h3{
+#pokemonInfo h2{
     font-family: Pocket Monk !important;
     color: white;
+}
+
+#pokemonInfo h2::first-letter{
+    font-size: 1.5em;
+}
+
+.ui-widget-header {
+    font-size: 1.5em;
 }

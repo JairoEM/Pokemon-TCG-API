@@ -6,6 +6,15 @@ $(document).ready(function(){
     var scroll = true;
     var main = true;
 
+    // DIALOG
+    $($info).dialog({
+        autoOpen: false,
+        modal: true,
+        show: { effect: "blind", duration: 800 },
+        hide: { effect: "fade", duration: 800 },
+        title: "Dialog Title",
+    });
+
     // INITIAL LAYOUT
     $.ajax({
         method: "GET",
@@ -16,7 +25,7 @@ $(document).ready(function(){
         for(let i = 0; i < result.cards.length; i++){
             $cards.append("<div class='pokemonCard col-md-4'></div>");
             var $card = $("div.pokemonCard:last-child");
-            $card.append("<h3>"+ result.cards[i].name +"</h3>");
+            $card.append("<h2>"+ result.cards[i].name +"</h2>");
             $card.append("<img src="+ result.cards[i].imageUrl +">");
             $card.click(function(){
                 var pokemonID = result.cards[i].id;
@@ -29,12 +38,16 @@ $(document).ready(function(){
                     $info.empty();
                     $info.append("<div class='cardInfo'></div>");
                     var $cardInfo = $("div.cardInfo:last-child");
-                    $cardInfo.append("<h3>"+ response.cards[0].name +"</h3>");
                     $cardInfo.append("<p>Supertype: "+ response.cards[0].supertype +"</p>");
                     $cardInfo.append("<p>Type: "+ response.cards[0].types[0] +"</p>");
                     $cardInfo.append("<p>HP: "+ response.cards[0].hp +"</p>");
                     $cardInfo.append("<p>Number: "+ response.cards[0].number +"</p>");
                     $cardInfo.append("<p>Rarity: "+ response.cards[0].rarity +"</p>");
+                    $info.dialog( "option", "title", response.cards[0].name );
+                    $info.dialog("option", "width", 347);
+                    $info.dialog("option", "height", 480);
+                    $info.dialog("option", "resizable", false);
+                    $info.dialog("open");
                 })
 
                 .fail(function(){
@@ -65,7 +78,7 @@ $(document).ready(function(){
                             for(let i = 0; i < result.cards.length; i++){
                                 $cards.append("<div class='pokemonCard col-md-4'></div>");
                                 var $card = $("div.pokemonCard:last-child");
-                                $card.append("<h3>"+ result.cards[i].name +"</h3>");
+                                $card.append("<h2>"+ result.cards[i].name +"</h2>");
                                 $card.append("<img src="+ result.cards[i].imageUrl +">");
                                 $card.click(function(){
                                     var pokemonID = result.cards[i].id;
@@ -78,7 +91,7 @@ $(document).ready(function(){
                                         $info.empty();
                                         $info.append("<div class='cardInfo'></div>");
                                         var $cardInfo = $("div.cardInfo:last-child");
-                                        $cardInfo.append("<h3>"+ response.cards[0].name +"</h3>");
+                                        $cardInfo.append("<h2>"+ response.cards[0].name +"</h2>");
                                         $cardInfo.append("<p>Supertype: "+ response.cards[0].supertype +"</p>");
                                         $cardInfo.append("<p>Type: "+ response.cards[0].types[0] +"</p>");
                                         $cardInfo.append("<p>HP: "+ response.cards[0].hp +"</p>");
@@ -122,7 +135,7 @@ $(document).ready(function(){
             for(let i = 0; i < result.cards.length; i++){
                 $cards.append("<div class='pokemonCard col-md-4'></div>");
                 var $card = $("div.pokemonCard:last-child");
-                $card.append("<h3>"+ result.cards[i].name +"</h3>");
+                $card.append("<h2>"+ result.cards[i].name +"</h2>");
                 $card.append("<img src="+ result.cards[i].imageUrl +">");
                 $card.click(function(){
                     var pokemonID = result.cards[i].id;
@@ -135,7 +148,7 @@ $(document).ready(function(){
                         $info.empty();
                         $info.append("<div class='cardInfo'></div>");
                         var $cardInfo = $("div.cardInfo:last-child");
-                        $cardInfo.append("<h3>"+ response.cards[0].name +"</h3>");
+                        $cardInfo.append("<h2>"+ response.cards[0].name +"</h2>");
                         $cardInfo.append("<p>Supertype: "+ response.cards[0].supertype +"</p>");
                         $cardInfo.append("<p>Type: "+ response.cards[0].types[0] +"</p>");
                         $cardInfo.append("<p>HP: "+ response.cards[0].hp +"</p>");
