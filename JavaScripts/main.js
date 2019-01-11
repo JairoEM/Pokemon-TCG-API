@@ -6,7 +6,7 @@ $(document).ready(function(){
     var scroll = true;
     var main = true;
     var audio = document.getElementById("audio");
-
+    audio.volume = 0.2;
 
     // DIALOG
     $($info).dialog({
