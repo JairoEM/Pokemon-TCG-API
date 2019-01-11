@@ -11,8 +11,8 @@ Functions:
 ---- WARNING!! ----     
 May have problem with the Dialog Style, Netlify can not read the link.  
     
-It shows the dialogs like that:
+It shows the dialogs like that:     
 ![Netlify Image](/Images/errorIMG1.png)     
 
-When the image must be showed like that:
+When the image must be showed like that:        
 ![LocalHost Image](/Images/errorIMG2.png)
