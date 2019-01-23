@@ -1,5 +1,5 @@
 # Pokemon-TCG-API
-Pokemon TCG API proyect. 
+Pokemon TCG API project. 
 
 Main page: https://sharp-allen-cd9df1.netlify.com
 
